@@ -1,0 +1,20 @@
+{
+  "author": "ka2er",
+  "name": "dont-make-hours",
+  "description": "ETemptation Client",
+  "version": "0.0.1",
+  "repository": {
+    "url": ""
+  },
+  "dependencies": {
+      "nconf" : "0.6.4",
+	  "jquery" : "1.7.3",
+	  "async" : "0.1.22",
+	  "request" : "2.11.4"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

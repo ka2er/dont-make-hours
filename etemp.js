@@ -202,7 +202,12 @@ Etemp.prototype.getWeekData = function(date, callback) {
 	self.cmd('<req user="'+self.user+'" name="HR/HEB" action="GET"></req>', function(e, r, b) {
 		var today = zeroLeftPad(date.getDate())+'/'+zeroLeftPad(date.getMonth()+1)+'/'+date.getFullYear();
 		self.cmd('<req user="'+self.user+'" name="HR/HEB" function="CHXDAT" action="CHOICE"><param name="DATE" value="'+today+'"/></req>', function(e, r, b){
-			var t_date = $(b).find('field[name="DATE"]').attr('value').split('/');
+			var resp_date = $(b).find('field[name="DATE"]').attr('value');
+			if(!resp_date) {
+				console.log("ERR : server seems misconfigured ! Please see config.json.");
+				process.exit();
+			}
+			var t_date = resp_date.split('/');
 			var first_day = new Date(t_date[2], t_date[1]-1, t_date[0]);
 			console.log("1st day of week is :"+first_day.toDateString());
 

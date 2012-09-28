@@ -15,7 +15,7 @@ function loadConfig() {
 	for(var i in t_conf_k) {
 		var param = nconf.get(t_conf_k[i]);
 		if(param == undefined) {
-			return new Error('please define param '+t_conf_k[i]+' in config file');
+			return new Error('please define param '+t_conf_k[i]+' in config file (./config.json)');
 		}
 		o_conf[t_conf_k[i]] = param;
 	}
@@ -74,6 +74,15 @@ http.createServer(function (req, response) {
 			var rtt = Math.floor(week_min / (7*60));
 			//console.log("Rtt possible : "+rtt);
 			html += "Rtt possible : "+rtt + "<br/>";
+
+			if(res.today.total > 10*60 || extra_week_min > 5*60 || week_min > 64*60 ) {
+				html += "<b style='color:green;'>GO GO GO GO !!</b><br/>";
+			} else {
+				// 8 hour by day
+				js = "<script type='text/javascript'></script>";
+				html += "Today remaining time (8H): <span>"+time.minToTime(8*60-res.today.total)+"</span>"+js;
+			}
+
 
 			response.writeHead(200, {'Content-Type': 'text/html'});
 			response.end(html);

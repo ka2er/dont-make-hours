@@ -152,6 +152,7 @@ Etemp.prototype.getTodayWorkTime = function(callback) {
 		// get today offset vs first week day
 		var i_today = (date - data.first_day) / (86400*1000);
 		var buf = data.raw.split('DATA/C20/3')[2];
+
 		buf = buf.split('DATA/C20/4')[0].split('!')[1].split(']');
 		t1 = buf[i_today*2].split(';');
 		t2 = buf[i_today*2+1].split(';');

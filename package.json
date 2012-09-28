@@ -3,14 +3,19 @@
   "name": "dont-make-hours",
   "description": "ETemptation Client",
   "version": "0.0.1",
+  "keywords": ["etemptation"],
+  "bugs": {
+	  "url" : "http://github.com/ka2er/dont-make-hours/issues"
+  },
   "repository": {
-    "url": ""
+	"type": "git",
+    "url": "http://github.com/ka2er/dont-make-hours.git"
   },
   "dependencies": {
-      "nconf" : "0.6.4",
-	  "jquery" : "1.7.3",
-	  "async" : "0.1.22",
-	  "request" : "2.11.4"
+      "nconf" : ">=0.6.4",
+	  "jquery" : ">=1.7.3",
+	  "async" : ">=0.1.22",
+	  "request" : ">=2.11.4"
   },
   "devDependencies": {},
   "optionalDependencies": {},

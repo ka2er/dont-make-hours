@@ -17,7 +17,7 @@ Usage
 =====
 
 ```
-node index.js
+node server.js
 ```
 
 You can now access it via browser http://localhost:9999

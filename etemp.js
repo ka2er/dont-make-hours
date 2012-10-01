@@ -36,6 +36,7 @@ function get(url, server, port) {
 }
 
 exports.get = get;
+exports.zeroLeftPad =  zeroLeftPad;
 
 function Etemp(url, server, port){
 	this.url = url;
@@ -154,8 +155,8 @@ Etemp.prototype.getTodayWorkTime = function(callback) {
 		var buf = data.raw.split('DATA/C20/3')[2];
 
 		buf = buf.split('DATA/C20/4')[0].split('!')[1].split(']');
-		t1 = buf[i_today*2].split(';');
-		t2 = buf[i_today*2+1].split(';');
+		t1 = buf[i_today*2].split(';'); // badgeage matin
+		t2 = buf[i_today*2+1].split(';'); // badgeage aprem midi
 		var x = t1[t1.length - 3];
 		if(t2[t2.length - 3]) x += '-'+ t2[t2.length - 3];
 

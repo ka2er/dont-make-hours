@@ -78,11 +78,15 @@ http.createServer(function (req, response) {
 			if(res.today.total > 10*60 || extra_week_min > 5*60 || week_min > 64*60 ) {
 				html += "<b style='color:green;'>GO GO GO GO !!</b><br/>";
 			} else {
-				// 8 hour by day
-				js = "<script type='text/javascript'></script>";
-				html += "Today remaining time (8H): <span>"+time.minToTime(8*60-res.today.total)+"</span>"+js;
+				// 8 hours by day
+				var now = new Date();
+				var mins = 8*60-res.today.total;
+				var ttl_date = time.minToTime(mins);
+				now.setMinutes(now.getMinutes()+mins);
+				var ttl = now.getFullYear()+'_'+etemp.zeroLeftPad(now.getMonth()+1)+'_'+etemp.zeroLeftPad(now.getDate())+'_'+etemp.zeroLeftPad(now.getHours())+'_'+etemp.zeroLeftPad(now.getMinutes());
+				html += "Today remaining time (8H): <span>"+ttl_date+"</span><br />";
+				html += '<iframe src="http://www.countdownr.com/external.html?logo=clock.png&amp;alert=gong.mp3&amp;time='+ttl+'&amp;title=Go%20Home&amp;repeat=0&amp;url=&amp;background=transparent" frameborder="0" width="320" height="130" scrolling="no"><a href="http://www.countdownr.com">Countdownr</a></iframe>';
 			}
-
 
 			response.writeHead(200, {'Content-Type': 'text/html'});
 			response.end(html);

@@ -6,7 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var $ = require('jquery');
+var $ = require('jquery'),
+	etemp = require('./etemp.js');
 
 
 timeToMin = function(time) {
@@ -17,7 +18,7 @@ timeToMin = function(time) {
 minToTime = function(min) {
 	var sign = min < 0 ? "-" : '';
 	min = Math.abs(min);
-	return sign+Math.floor(min / 60)+"h"+(min % 60);
+	return sign+Math.floor(min / 60)+"h"+etemp.zeroLeftPad(min % 60);
 };
 
 

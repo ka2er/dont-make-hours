@@ -21,3 +21,13 @@ node server.js
 ```
 
 You can now access it via browser http://localhost:9999
+
+Changelog
+=========
+
+v0.0.2
+ - add countdown
+ - more verbose error in case of configuration error
+
+v0.0.1
+ - initial version

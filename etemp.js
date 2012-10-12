@@ -144,19 +144,28 @@ Etemp.prototype.getWeekHours = function(date, callback) {
  * @param callback(err, res)
  */
 Etemp.prototype.getTodayWorkTime = function(callback) {
-
-
 	date = ignoreTime(new Date()); // RAZ
 
 	self.getWeekData(date, function(data) {
 
 		// get today offset vs first week day
-		var i_today = (date - data.first_day) / (86400*1000);
-		var buf = data.raw.split('DATA/C20/3')[2];
+		var i_today = date.getDay();
 
+		var buf = data.raw.split('DATA/C20/3')[2];
 		buf = buf.split('DATA/C20/4')[0].split('!')[1].split(']');
-		t1 = buf[i_today*2].split(';'); // badgeage matin
-		t2 = buf[i_today*2+1].split(';'); // badgeage aprem midi
+
+		// seek for today data
+		$.each(buf, function(i, e) {
+
+			if(e.split('(')[1].split(':')[0] == i_today) {
+
+				t1 = buf[i].split(';'); // badgeage matin
+				t2 = buf[i+1].split(';'); // badgeage aprem midi
+				return false;
+			}
+		});
+
+
 		var x = t1[t1.length - 3];
 		if(t2[t2.length - 3]) x += '-'+ t2[t2.length - 3];
 

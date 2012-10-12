@@ -25,7 +25,8 @@ You can now access it via browser http://localhost:9999
 Changelog
 =========
 
-v0.0.3 - wip
+v0.0.3
+ - colored hour (green/red)
  - pretty hour formatting
  - handle week with CP
 

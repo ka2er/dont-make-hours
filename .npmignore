@@ -10,6 +10,8 @@ lib-cov
 pids
 logs
 results
+.idea
+.git
 
 config.json
 node_modules

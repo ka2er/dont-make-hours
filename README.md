@@ -9,8 +9,8 @@ Configuration
 just rename config.json.sample to config.json and edit it.
 
 ```
-cp config.json.sample config.json
-vim config.json
+cp config.json.sample ~/.dontmakehours.json
+vim ~/.dontmakehours.json
 ```
 
 Usage
@@ -24,6 +24,10 @@ You can now access it via browser http://localhost:9999
 
 Changelog
 =========
+
+v0.0.4
+ - config file in user directory
+ TODO rules constants are stored in config file
 
 v0.0.3
  - colored hour (green/red)

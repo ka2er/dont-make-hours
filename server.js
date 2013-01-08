@@ -9,13 +9,16 @@ var nconf = require("nconf"),
 function loadConfig() {
 	o_conf = {};
 
-	nconf.file('config.json');
+	// retrieve home dir
+	var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+
+	nconf.file(home+'/.dontmakehours.json');
 
 	var t_conf_k = ['user', 'password', 'url', 'server', 'port'];
 	for(var i in t_conf_k) {
 		var param = nconf.get(t_conf_k[i]);
 		if(param == undefined) {
-			return new Error('please define param '+t_conf_k[i]+' in config file (./config.json)');
+			return new Error('please define param '+t_conf_k[i]+' in config file (~/.dontmakehours.json)');
 		}
 		o_conf[t_conf_k[i]] = param;
 	}

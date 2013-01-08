@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: seb
- * Date: 26/09/12
- * Time: 12:01
- * To change this template use File | Settings | File Templates.
- */
-
 var req = require("request"),
 	async = require("async"),
 	$ = require("jquery");

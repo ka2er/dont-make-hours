@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: seb
- * Date: 27/09/12
- * Time: 15:12
- * To change this template use File | Settings | File Templates.
- */
-
 var $ = require('jquery'),
 	etemp = require('./etemp.js');
 

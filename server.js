@@ -14,7 +14,7 @@ function loadConfig() {
 
 	nconf.file(home+'/.dontmakehours.json');
 
-	var t_conf_k = ['user', 'password', 'url', 'server', 'port'];
+	var t_conf_k = ['user', 'password', 'url', 'server', 'port', 'max_day', 'max_month', 'max_week', 'ref_day'];
 	for(var i in t_conf_k) {
 		var param = nconf.get(t_conf_k[i]);
 		if(param == undefined) {
@@ -70,37 +70,37 @@ http.createServer(function (req, response) {
 
 			var worked = time.minToTime(res.today.total);
 			//console.log("Today work time (max = 10) : " + worked);
-			worked = res.today.total > 60*10 ? red(worked) : green(worked);
-			var html = "Today work time (max = 10) : " + worked + "<br/>";
+			worked = res.today.total > time.timeToMin(o_conf['max_day']) ? red(worked) : green(worked);
+			var html = "Today work time (max = "+o_conf['max_day']+") : " + worked + "<br/>";
 
 			var week_min = res.today.wip + time.timeToMin(res.badging_current['today']);
 			var week = time.minToTime(week_min);
-			week = week_min > 64*60 ? red(week) : green(week);
+			week = week_min > time.timeToMin(o_conf['max_month']) ? red(week) : green(week);
 			//console.log("Instant week cmpt (abs, max = 64) : " + week);
-			html += "Instant week cmpt (abs, max = 64) : " + week + "<br/>";
+			html += "Instant week cmpt (abs, max = "+ o_conf['max_month'] +") : " + week + "<br/>";
 
 			var extra_week_min = week_min - time.timeToMin(res.badging_previous[7]);
 			var extra_week = time.minToTime(extra_week_min);
-			extra_week = extra_week_min > 5*60 ? red(extra_week) : green(extra_week);
+			extra_week = extra_week_min > time.timeToMin(o_conf['max_week']) ? red(extra_week) : green(extra_week);
 			//console.log("Week extra hours (rel, max = 5) : " + extra_week +" --- "+ res.badging_previous[7] +"=>"+week);
-			html += "Week extra hours (rel, max = 5) : " + extra_week +" --- "+ res.badging_previous[7] +"=>"+week + "<br/>";
+			html += "Week extra hours (rel, max = "+ o_conf['max_week'] +") : " + extra_week +" --- "+ res.badging_previous[7] +"=>"+week + "<br/>";
 
-			var rtt = Math.floor(week_min / (7*60));
+			var rtt = Math.floor(week_min / (time.timeToMin(o_conf['ref_day'])));
 			//console.log("Rtt possible : "+rtt);
 			rtt = rtt > 0 ? green(rtt) : red(rtt);
 			html += "Rtt possible : "+rtt + "<br/>";
 
-			if(res.today.total > 10*60 || extra_week_min > 5*60 || week_min > 64*60 ) {
+			if(res.today.total > time.timeToMin(o_conf['max_day']) || extra_week_min > time.timeToMin(o_conf['max_week']) || week_min > time.timeToMin(o_conf['max_month']) ) {
 				html += "<b style='color:green;'>GO GO GO GO !!</b><br/>";
 			} else {
 				// 8 hours by day
 				var now = new Date();
-				var mins = 8*60-res.today.total;
+				var mins = time.timeToMin(o_conf['ref_day'])-res.today.total;
 				var ttl_date = time.minToTime(mins);
 				now.setMinutes(now.getMinutes()+mins);
 				var ttl = now.getFullYear()+'_'+etemp.zeroLeftPad(now.getMonth()+1)+'_'+etemp.zeroLeftPad(now.getDate())+'_'+etemp.zeroLeftPad(now.getHours())+'_'+etemp.zeroLeftPad(now.getMinutes());
 				ttl_date = mins > 8*60 ? red(ttl_date) : green(ttl_date);
-				html += "Today remaining time (8H): <span>"+ttl_date+"</span><br />";
+				html += "Today remaining time ("+o_conf['ref_day']+"): <span>"+ttl_date+"</span><br />";
 				html += '<iframe src="http://www.countdownr.com/external.html?logo=clock.png&amp;alert=gong.mp3&amp;time='+ttl+'&amp;title=Go%20Home&amp;repeat=0&amp;url=&amp;background=transparent" frameborder="0" width="320" height="130" scrolling="no"><a href="http://www.countdownr.com">Countdownr</a></iframe>';
 			}
 

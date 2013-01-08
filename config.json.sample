@@ -2,6 +2,10 @@
     "user" : "",
     "password" : "",
     "url" : "http://...",
-	"server" : "",
-	"port" : ""
+    "server" : "",
+    "port" : ""
+    "ref_day" : "7.54",
+    "max_day" : "10",
+    "max_week" : "8.30",
+    "max_month" : "79"
 }

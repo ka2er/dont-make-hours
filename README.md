@@ -27,7 +27,7 @@ Changelog
 
 v0.0.4
  - config file in user directory
- TODO rules constants are stored in config file
+ - rules constants are stored in config file
 
 v0.0.3
  - colored hour (green/red)
